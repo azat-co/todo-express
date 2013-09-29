@@ -1,0 +1,13 @@
+doctype 5
+html
+  head
+    title= title + ' | ' + appname
+    link(rel="stylesheet", href="/css/bootstrap.css")
+
+  body
+    .container
+      .navbar.navbar-default
+        .container
+          .navbar-header
+            a.navbar-brand(href='/')= appname
+      block content

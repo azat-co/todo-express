@@ -1,0 +1,19 @@
+extends layout
+
+block content
+
+  .menu
+    h2 Menu
+    ul.nav.nav-pills
+      li
+        a(href='/') Home
+  h1= title
+
+  .list
+    each task, index in tasks
+      .item=task.name
+  .add-task
+    h2 Add a new task
+    form(action="/tasks", method='post')
+      input(type="text", name="name")
+      input.btn.btn-primary.btn-sm(type="submit")
