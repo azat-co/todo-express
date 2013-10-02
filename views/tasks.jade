@@ -7,13 +7,35 @@ block content
     ul.nav.nav-pills
       li
         a(href='/') Home
+      li.active
+        a(href='/tasks') Todo List
+      li
+        a(href="/tasks/completed") Completed
   h1= title
 
   .list
+    .item.add-task
+      div.action
+        a(class='btn btn-success btn-xs task-done') all done
+      form(action="/tasks", method='post')
+        div.name
+          input(type="text", name="name", placeholder='Add a new task')
+        div.delete
+          input.btn.btn-primary.btn-sm(type="submit")
+    if (tasks.length === 0)
+      | No tasks.
     each task, index in tasks
-      .item=task.name
-  .add-task
-    h2 Add a new task
-    form(action="/tasks", method='post')
-      input(type="text", name="name")
-      input.btn.btn-primary.btn-sm(type="submit")
+      .item
+        div.action
+          a(class='btn btn-success btn-xs task-done', data-task-id=task._id.toString()) done
+        div.num
+          span=index+1
+            |.&nbsp;
+        div.name
+          span.name=task.name
+          //- no support for DELETE method in forms
+          //- http://amundsen.com/examples/put-delete-forms/
+          //- so do XHR request instead from public/javascripts/main.js
+        div.delete
+          a(class='btn btn-danger btn-xs task-delete', data-task-id=task._id.toString()) delete
+

@@ -37,10 +37,21 @@ app.use(app.router);
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
-
+app.param('task_id', function(req, res, next, taskId) {
+  console.log (taskId);
+  req.db.tasks.findById(taskId, function(error, task){
+    if (error) return next(error);
+    if (!task) return next(new Error('Task is not found.'));
+    req.task = task;
+    return next();
+  });
+})
 app.get('/', routes.index);
 app.get('/tasks', tasks.list);
 app.post('/tasks', tasks.add);
+app.del('/tasks/:task_id', tasks.del);
+app.get('/tasks/completed', tasks.completed);
+
 app.all('*', function(req, res){
   res.send(404);
 })

@@ -1,11 +1,14 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to Express.js Todo app by @azat_co.
   .menu
     h2 Menu
     ul.nav.nav-pills
+      li.active
+        a(href="/tasks") Home
       li
-        a(href="/tasks") List of tasks
-  
+        a(href="/tasks") Todo List
+      li
+        a(href="/tasks") Completed
+
+
