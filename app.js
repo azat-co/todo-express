@@ -35,7 +35,6 @@ app.use(require('less-middleware')({ src: __dirname + '/public', compress: true 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(function(req, res, next) {
   res.locals._csrf = req.session._csrf;
-  console.log (req.session._csrf)
   return next();
 })
 app.use(app.router);
