@@ -27,10 +27,17 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
+app.use(express.cookieParser());
+app.use(express.session({secret: '59B93087-78BC-4EB9-993A-A61FC844F6C9'}));
+app.use(express.csrf());
 
 app.use(require('less-middleware')({ src: __dirname + '/public', compress: true }));
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(function(req, res, next) {
+  res.locals._csrf = req.session._csrf;
+  console.log (req.session._csrf)
+  return next();
+})
 app.use(app.router);
 
 // development only
@@ -38,17 +45,19 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 app.param('task_id', function(req, res, next, taskId) {
-  console.log (taskId);
   req.db.tasks.findById(taskId, function(error, task){
     if (error) return next(error);
     if (!task) return next(new Error('Task is not found.'));
     req.task = task;
     return next();
   });
-})
+});
+
 app.get('/', routes.index);
 app.get('/tasks', tasks.list);
+app.post('/tasks', tasks.markAllCompleted)
 app.post('/tasks', tasks.add);
+app.post('/tasks/:task_id', tasks.markCompleted);
 app.del('/tasks/:task_id', tasks.del);
 app.get('/tasks/completed', tasks.completed);
 

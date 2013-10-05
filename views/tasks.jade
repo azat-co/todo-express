@@ -16,18 +16,26 @@ block content
   .list
     .item.add-task
       div.action
-        a(class='btn btn-success btn-xs task-done') all done
+        form(action='/tasks', method='post')
+          input(type='hidden', value='true', name='all_done')
+          input(type='hidden', value=locals._csrf, name='_csrf')
+          input(type='submit', class='btn btn-success btn-xs', value='all done')
       form(action="/tasks", method='post')
+        input(type='hidden', value=locals._csrf, name='_csrf')
         div.name
           input(type="text", name="name", placeholder='Add a new task')
         div.delete
-          input.btn.btn-primary.btn-sm(type="submit")
+          input.btn.btn-primary.btn-sm(type="submit", value='add')
     if (tasks.length === 0)
       | No tasks.
     each task, index in tasks
       .item
         div.action
-          a(class='btn btn-success btn-xs task-done', data-task-id=task._id.toString()) done
+          form(action='/tasks/#{task._id}', method='post')
+            input(type='hidden', value=task._id.toString(), name='id')
+            input(type='hidden', value='true', name='completed')
+            input(type='hidden', value=locals._csrf, name='_csrf')
+            input(type='submit', class='btn btn-success btn-xs task-done', value='done')
         div.num
           span=index+1
             |.&nbsp;
@@ -37,5 +45,5 @@ block content
           //- http://amundsen.com/examples/put-delete-forms/
           //- so do XHR request instead from public/javascripts/main.js
         div.delete
-          a(class='btn btn-danger btn-xs task-delete', data-task-id=task._id.toString()) delete
+          a(class='btn btn-danger btn-xs task-delete', data-task-id=task._id.toString(), data-csrf=locals._csrf) delete
 

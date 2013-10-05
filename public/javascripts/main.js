@@ -12,12 +12,15 @@ $(document).ready(function() {
     $alert.show();
   })
   $('.task-delete').click(function(event) {
-    console.log (event.target.dataset.taskId)
+    $target = $(event.target)
     $.ajax({
       type: 'DELETE',
-      url: '/tasks/' + event.target.dataset.taskId,
+      url: '/tasks/' + $target.attr('data-task-id'),
+      data: {
+        _csrf: $target.attr('data-csrf')
+      },
       success: function(response) {
-        $(event.target).parent().parent().remove();
+        $target.parent().parent().remove();
         $alert.trigger('success', 'Task was removed.');
       },
       error: function(error) {
