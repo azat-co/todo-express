@@ -8,7 +8,7 @@ var tasks = require('./routes/tasks');
 var http = require('http');
 var path = require('path');
 var mongoskin = require('mongoskin');
-var db = mongoskin.db('$MONGODB_CONNECTION_STRING', {safe:true});
+var db = mongoskin.db('${MONGODB_CONNECTION_STRING}', {safe:true});
 var app = express();
 app.use(function(req, res, next) {
   req.db = {};
