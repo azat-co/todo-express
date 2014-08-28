@@ -4,5 +4,5 @@
  */
 
 exports.index = function(req, res){
-  res.render('index', { title: 'Express.js Todo App' });
+  res.render('index', { title: 'Home' });
 };
