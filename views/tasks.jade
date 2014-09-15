@@ -20,10 +20,10 @@ block content
           input(type='hidden', value='true', name='all_done')
           input(type='hidden', value=locals._csrf, name='_csrf')
           input(type='submit', class='btn btn-success btn-xs', value='all done')
-      form(action="/tasks", method='post')
+      form(action='/tasks', method='post')
         input(type='hidden', value=locals._csrf, name='_csrf')
         div.name
-          input(type="text", name="name", placeholder='Add a new task')
+          input(type='text', name='name', placeholder='Add a new task')
         div.delete
           input.btn.btn-primary.btn-sm(type="submit", value='add')
     if (tasks.length === 0)

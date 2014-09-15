@@ -22,8 +22,6 @@ app.use(function(req, res, next) {
   next();
 })
 app.locals.appname = 'Express.js Todo App'
-// all environments
-
 
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');

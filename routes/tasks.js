@@ -49,7 +49,7 @@ exports.completed = function(req, res, next) {
 };
 
 exports.markCompleted = function(req, res, next) {
-  if (!req.body.completed) return next(new Error('Param is missing'));
+  if (!req.body.completed) return next(new Error('Param is missing.'));
   req.db.tasks.updateById(req.task._id, {$set: {completed: req.body.completed === 'true'}}, function(error, count) {
     if (error) return next(error);
     if (count !==1) return next(new Error('Something went wrong.'));
