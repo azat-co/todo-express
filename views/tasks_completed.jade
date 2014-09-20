@@ -23,5 +23,5 @@ block content
           span=index+1
             |.&nbsp;
         div.name.completed-task
-          span.name=task.name
+          span.name=task.name + ' (Completed at: ' + moment(task.completeTime).format("YYYY/MM/DD") + ')'
 

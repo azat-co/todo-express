@@ -40,7 +40,7 @@ block content
           span=index+1
             |.&nbsp;
         div.name
-          span.name=task.name
+          span.name=task.name + ' (Created at: ' + moment(task.createTime).format("YYYY/MM/DD") + ')'
           //- no support for DELETE method in forms
           //- http://amundsen.com/examples/put-delete-forms/
           //- so do XHR request instead from public/javascripts/main.js
