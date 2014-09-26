@@ -22,6 +22,7 @@ app.use(function(req, res, next) {
   next();
 })
 app.locals.appname = 'Express.js Todo App'
+app.locals.moment = require('moment');
 
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
