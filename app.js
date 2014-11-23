@@ -65,7 +65,7 @@ app.delete('/tasks/:task_id', tasks.del);
 app.get('/tasks/completed', tasks.completed);
 
 app.all('*', function(req, res){
-  res.send(404);
+  res.status(404).send();
 })
 // development only
 if ('development' == app.get('env')) {

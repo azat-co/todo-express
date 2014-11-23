@@ -66,6 +66,6 @@ exports.del = function(req, res, next) {
     if (error) return next(error);
     if (count !==1) return next(new Error('Something went wrong.'));
     console.info('Deleted task %s with id=%s completed.', req.task.name, req.task._id);
-    res.status(200).send();
+    res.status(204).send();
   });
 };
